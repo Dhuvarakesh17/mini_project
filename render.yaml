@@ -1,0 +1,18 @@
+# For deploying to Render.com (easiest free option)
+# Steps:
+# 1. Push code to GitHub
+# 2. Go to render.com and sign up
+# 3. Click "New Web Service"
+# 4. Connect your GitHub repo
+# 5. Use these settings:
+#
+# Name: heart-risk-app
+# Environment: Docker
+# Build Command: (leave empty, will use Dockerfile)
+# Start Command: (leave empty, will use Dockerfile CMD)
+#
+# Or set as environment variables if needed:
+# PYTHON_VERSION: 3.11
+# NODE_VERSION: 18
+
+# The Dockerfile in the project root will handle everything!

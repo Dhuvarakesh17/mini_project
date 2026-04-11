@@ -1,0 +1,17 @@
+# Quick deployment with Railway (railway.app)
+# Steps:
+# 1. Go to railway.app
+# 2. Sign up with GitHub
+# 3. Create new project
+# 4. Import from GitHub repo
+# 5. Railway will auto-detect the Dockerfile
+# 6. Set environment variables if needed
+# 7. Deploy!
+
+# Railway settings:
+# - Uses Dockerfile
+# - Detects PORT from $PORT env variable
+# - Free tier: 500 hours/month
+
+# Optional environment variables:
+# ENVIRONMENT: production

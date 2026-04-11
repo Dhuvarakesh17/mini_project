@@ -1,0 +1,6 @@
+{
+  "model_source": "models\\best_production.joblib",
+  "baseline_threshold": 0.26,
+  "sample_count": 61,
+  "positive_rate": 0.45901639344262296
+}

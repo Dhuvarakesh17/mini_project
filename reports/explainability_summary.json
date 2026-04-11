@@ -1,0 +1,10 @@
+{
+  "explainability": {
+    "model_source": "models\\best_production.joblib",
+    "permutation_json": "reports/feature_importance_permutation.json",
+    "permutation_plot": "reports/feature_importance_permutation.png",
+    "shap_status": "SHAP not available. Install shap to generate SHAP artifacts.",
+    "shap_beeswarm": "reports/shap_beeswarm.png",
+    "shap_waterfall": "reports/shap_waterfall_sample0.png"
+  }
+}

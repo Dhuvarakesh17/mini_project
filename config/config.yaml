@@ -1,0 +1,15 @@
+seed: 42
+paths:
+  raw_data: data/raw/processed_cleveland.csv
+  model_dir: models
+  report_dir: reports
+split:
+  test_size: 0.2
+  val_size: 0.2
+training:
+  epochs: 200
+  batch_size: 32
+  learning_rate: 0.001
+  early_stopping_patience: 20
+threshold:
+  default: 0.5

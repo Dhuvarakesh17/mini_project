@@ -1,0 +1,26 @@
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.venv/
+venv/
+.env
+.pytest_cache/
+.mypy_cache/
+.DS_Store
+models/*.joblib
+models/*.pt
+models/*.json
+data/raw/*.csv
+data/processed/*
+reports/*.png
+
+# Frontend dependencies and build output
+frontend/node_modules/
+frontend/dist/
+
+# Common local tooling caches
+.ruff_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/

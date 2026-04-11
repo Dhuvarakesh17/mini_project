@@ -11,9 +11,13 @@ venv/
 models/*.joblib
 models/*.pt
 models/*.json
+!models/*.joblib
+!models/*.pt
+!models/*.json
 data/raw/*.csv
 data/processed/*
 reports/*.png
+!reports/*.png
 
 # Frontend dependencies and build output
 frontend/node_modules/

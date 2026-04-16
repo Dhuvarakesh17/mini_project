@@ -1,0 +1,29 @@
+{
+  "generated_at": "2026-04-16T14:42:22.096803+00:00",
+  "model_name": "HeartNet (Deep Learning)",
+  "risk_probability": 0.9716605544090271,
+  "threshold": 0.64,
+  "risk_label": "high_risk",
+  "summary": "Higher chance of heart problem",
+  "recommendation": "Please seek urgent evaluation from a heart specialist.",
+  "insights": [
+    "Exercise ECG stress change is noticeably elevated.",
+    "Multiple major vessels are flagged in imaging-based input.",
+    "Lower peak heart rate may indicate reduced exercise tolerance."
+  ],
+  "inputs": {
+    "age": 45.0,
+    "sex": 1,
+    "cp": 0,
+    "trestbps": 120.0,
+    "chol": 200.0,
+    "fbs": 0,
+    "restecg": 0,
+    "thalach": 54.0,
+    "exang": 0,
+    "oldpeak": 2.0,
+    "slope": 0,
+    "ca": 2,
+    "thal": 1
+  }
+}

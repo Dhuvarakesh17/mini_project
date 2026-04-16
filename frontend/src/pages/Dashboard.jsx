@@ -1,9 +1,12 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   initialForm,
   fields,
   fieldMeta,
+  fieldHelpText,
   fieldConstraints,
+  fieldChoices,
   parseApiError,
   buildDetermination,
 } from "../constants";
@@ -24,6 +27,11 @@ export default function Dashboard() {
     setForm((prev) => ({ ...prev, [field]: parsed }));
   };
 
+  const buildPayload = () =>
+    Object.fromEntries(
+      Object.entries(form).map(([field, value]) => [field, Number(value)]),
+    );
+
   const onSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
@@ -36,7 +44,7 @@ export default function Dashboard() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(form),
+        body: JSON.stringify(buildPayload()),
       });
 
       if (!response.ok) {
@@ -70,28 +78,41 @@ export default function Dashboard() {
       <main className="card">
         <h2>Patient Risk Prediction Dashboard</h2>
         <p className="subtitle">
-          Enter patient clinical parameters to receive predictive risk
-          assessment
+          Fill in your health details to get an estimated heart-risk score
         </p>
 
         <section className="panel">
-          <h3>Clinical Input Form</h3>
+          <h3>Health Details Form</h3>
           <form onSubmit={onSubmit} className="grid">
             {fields.map((field) => (
               <label key={field}>
                 <span>{fieldMeta[field]?.label || field}</span>
-                <small className="field-code">
-                  Code: {fieldMeta[field]?.code || field}
-                </small>
-                <input
-                  type="number"
-                  value={form[field]}
-                  onChange={(e) => updateField(field, e.target.value)}
-                  min={fieldConstraints[field]?.min}
-                  max={fieldConstraints[field]?.max}
-                  step={fieldConstraints[field]?.step}
-                  required
-                />
+                <small className="field-help">{fieldHelpText[field]}</small>
+                {fieldChoices[field] ? (
+                  <select
+                    value={form[field]}
+                    onChange={(e) => updateField(field, e.target.value)}
+                    required
+                  >
+                    <option value="">Select an option</option>
+                    {fieldChoices[field].map((choice) => (
+                      <option key={choice.value} value={choice.value}>
+                        {choice.label}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  <input
+                    type="number"
+                    value={form[field]}
+                    onChange={(e) => updateField(field, e.target.value)}
+                    min={fieldConstraints[field]?.min}
+                    max={fieldConstraints[field]?.max}
+                    step={fieldConstraints[field]?.step}
+                    placeholder="Enter value"
+                    required
+                  />
+                )}
               </label>
             ))}
 
@@ -106,8 +127,8 @@ export default function Dashboard() {
             <section className="result">
               <h3>
                 {result.risk_label === "high_risk"
-                  ? "⚠️ High Risk"
-                  : "✓ Low Risk"}
+                  ? "⚠️ Higher chance of heart problem"
+                  : "✓ Lower chance of heart problem"}
               </h3>
               <p>
                 <strong>Probability:</strong>{" "}
@@ -120,18 +141,18 @@ export default function Dashboard() {
               <p>
                 <strong>Model:</strong> {result.model_name}
               </p>
+              <p className="result-note">
+                Prediction report saved with insights. View it in{" "}
+                <Link to="/reports">See Reports</Link>.
+              </p>
+              <p className="result-note">
+                This is a screening estimate, not a final diagnosis.
+              </p>
 
               {determination ? (
                 <div className={`determination ${determination.stage}`}>
                   <h4>{determination.title}</h4>
                   <p>{determination.summary}</p>
-                  <div className="keyword-wrap">
-                    {determination.keywords.map((keyword) => (
-                      <span key={keyword} className="keyword-pill">
-                        {keyword}
-                      </span>
-                    ))}
-                  </div>
                 </div>
               ) : null}
             </section>

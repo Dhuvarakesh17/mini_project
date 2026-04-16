@@ -31,12 +31,19 @@ export default function Reports() {
     loadReports();
   }, []);
 
+  const formatMetric = (value) => {
+    if (value == null || Number.isNaN(Number(value))) {
+      return "-";
+    }
+    return Number(value).toFixed(3);
+  };
+
   return (
     <div className="page">
       <main className="card">
-        <h2>Model Reports & Performance Visuals</h2>
+        <h2>Prediction Reports & Model Performance</h2>
         <p className="subtitle">
-          Comprehensive model evaluation, metrics, feature importance, and
+          View the latest saved prediction report, key insights, and model
           performance comparisons
         </p>
 
@@ -94,6 +101,66 @@ export default function Reports() {
 
               <div className="bottom-grid">
                 <article className="result">
+                  <h3>Latest Prediction Report</h3>
+                  {reports.latest_prediction_report?.generated_at ? (
+                    <>
+                      <p>
+                        <strong>Generated At:</strong>{" "}
+                        {new Date(
+                          reports.latest_prediction_report.generated_at,
+                        ).toLocaleString()}
+                      </p>
+                      <p>
+                        <strong>Summary:</strong>{" "}
+                        {reports.latest_prediction_report.summary}
+                      </p>
+                      <p>
+                        <strong>Probability:</strong>{" "}
+                        {(
+                          (reports.latest_prediction_report.risk_probability ||
+                            0) * 100
+                        ).toFixed(2)}
+                        %
+                      </p>
+                      <p>
+                        <strong>Threshold:</strong>{" "}
+                        {(
+                          (reports.latest_prediction_report.threshold || 0) *
+                          100
+                        ).toFixed(2)}
+                        %
+                      </p>
+                      <p>
+                        <strong>Model:</strong>{" "}
+                        {reports.latest_prediction_report.model_name}
+                      </p>
+                      <p>
+                        <strong>Recommended Next Step:</strong>{" "}
+                        {reports.latest_prediction_report.recommendation}
+                      </p>
+
+                      {reports.latest_prediction_report.insights?.length ? (
+                        <>
+                          <h4>Insights</h4>
+                          <ul className="insight-list">
+                            {reports.latest_prediction_report.insights.map(
+                              (insight) => (
+                                <li key={insight}>{insight}</li>
+                              ),
+                            )}
+                          </ul>
+                        </>
+                      ) : null}
+                    </>
+                  ) : (
+                    <p>
+                      No prediction report yet. Run a prediction from Dashboard,
+                      then return here.
+                    </p>
+                  )}
+                </article>
+
+                <article className="result">
                   <h3>Top Feature Signals</h3>
                   {reports.top_features?.length ? (
                     <ul className="feature-list">
@@ -112,11 +179,37 @@ export default function Reports() {
                 </article>
 
                 <article className="result">
-                  <h3>Model Comparison</h3>
-                  <pre>
-                    {reports.model_comparison_markdown ||
-                      "No comparison report found."}
-                  </pre>
+                  <h3>Model Comparison (Table)</h3>
+                  {reports.model_comparison_table?.length ? (
+                    <div className="table-wrap">
+                      <table className="comparison-table">
+                        <thead>
+                          <tr>
+                            <th>Model</th>
+                            <th>ROC-AUC</th>
+                            <th>PR-AUC</th>
+                            <th>Recall</th>
+                            <th>Specificity</th>
+                            <th>F1</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {reports.model_comparison_table.map((row) => (
+                            <tr key={row.model}>
+                              <td>{row.model}</td>
+                              <td>{formatMetric(row.roc_auc)}</td>
+                              <td>{formatMetric(row.pr_auc)}</td>
+                              <td>{formatMetric(row.recall)}</td>
+                              <td>{formatMetric(row.specificity)}</td>
+                              <td>{formatMetric(row.f1)}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  ) : (
+                    <p>No model comparison data available.</p>
+                  )}
                 </article>
               </div>
             </>

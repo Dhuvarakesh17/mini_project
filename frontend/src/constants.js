@@ -1,35 +1,51 @@
 export const initialForm = {
-  age: 57,
-  sex: 1,
-  cp: 2,
-  trestbps: 130,
-  chol: 236,
-  fbs: 0,
-  restecg: 1,
-  thalach: 174,
-  exang: 0,
-  oldpeak: 0,
-  slope: 1,
-  ca: 1,
-  thal: 2,
+  age: "",
+  sex: "",
+  cp: "",
+  trestbps: "",
+  chol: "",
+  fbs: "",
+  restecg: "",
+  thalach: "",
+  exang: "",
+  oldpeak: "",
+  slope: "",
+  ca: "",
+  thal: "",
 };
 
 export const fields = Object.keys(initialForm);
 
 export const fieldMeta = {
-  age: { label: "Age (years)", code: "age" },
-  sex: { label: "Sex (0 = female, 1 = male)", code: "sex" },
-  cp: { label: "Chest Pain Type", code: "cp" },
-  trestbps: { label: "Resting Blood Pressure (mm Hg)", code: "trestbps" },
-  chol: { label: "Serum Cholesterol (mg/dL)", code: "chol" },
-  fbs: { label: "Fasting Blood Sugar > 120 mg/dL", code: "fbs" },
-  restecg: { label: "Resting ECG Result", code: "restecg" },
-  thalach: { label: "Maximum Heart Rate Achieved", code: "thalach" },
-  exang: { label: "Exercise-Induced Angina", code: "exang" },
-  oldpeak: { label: "ST Depression (Oldpeak)", code: "oldpeak" },
-  slope: { label: "Slope of Peak Exercise ST Segment", code: "slope" },
-  ca: { label: "Number of Major Vessels (0-4)", code: "ca" },
-  thal: { label: "Thalassemia Category", code: "thal" },
+  age: { label: "Your age", code: "age" },
+  sex: { label: "Sex", code: "sex" },
+  cp: { label: "Type of chest discomfort", code: "cp" },
+  trestbps: { label: "Resting blood pressure (mm Hg)", code: "trestbps" },
+  chol: { label: "Cholesterol (mg/dL)", code: "chol" },
+  fbs: { label: "Fasting blood sugar", code: "fbs" },
+  restecg: { label: "Heart test result (ECG)", code: "restecg" },
+  thalach: { label: "Highest heart rate during activity", code: "thalach" },
+  exang: { label: "Chest pain during exercise", code: "exang" },
+  oldpeak: { label: "Exercise stress value (Oldpeak)", code: "oldpeak" },
+  slope: { label: "ECG trend during exercise", code: "slope" },
+  ca: { label: "Blocked major vessels (scan result)", code: "ca" },
+  thal: { label: "Blood flow test result", code: "thal" },
+};
+
+export const fieldHelpText = {
+  age: "Enter age in years.",
+  sex: "Select sex listed in your health record.",
+  cp: "Choose the option that best matches your symptom pattern.",
+  trestbps: "Use your recent resting blood pressure value.",
+  chol: "Use your latest cholesterol lab result.",
+  fbs: "Choose based on your fasting sugar test.",
+  restecg: "Use the summary from your ECG report.",
+  thalach: "Use your highest measured heart rate during activity.",
+  exang: "Did chest pain happen during physical activity?",
+  oldpeak: "Use this only if available in your stress test report.",
+  slope: "Use your stress ECG report if available.",
+  ca: "Number of blocked vessels from scan/angiography report.",
+  thal: "Select the blood flow/perfusion report result.",
 };
 
 export const fieldConstraints = {
@@ -46,6 +62,50 @@ export const fieldConstraints = {
   slope: { min: 0, max: 2, step: 1 },
   ca: { min: 0, max: 4, step: 1 },
   thal: { min: 0, max: 3, step: 1 },
+};
+
+export const fieldChoices = {
+  sex: [
+    { value: 0, label: "Female" },
+    { value: 1, label: "Male" },
+  ],
+  cp: [
+    { value: 0, label: "Typical chest pain" },
+    { value: 1, label: "Atypical chest pain" },
+    { value: 2, label: "Chest pain likely not heart-related" },
+    { value: 3, label: "No chest pain symptoms" },
+  ],
+  fbs: [
+    { value: 0, label: "120 mg/dL or below" },
+    { value: 1, label: "Above 120 mg/dL" },
+  ],
+  restecg: [
+    { value: 0, label: "Normal ECG" },
+    { value: 1, label: "Minor ECG change" },
+    { value: 2, label: "Major ECG change" },
+  ],
+  exang: [
+    { value: 0, label: "No" },
+    { value: 1, label: "Yes" },
+  ],
+  slope: [
+    { value: 0, label: "Upward trend" },
+    { value: 1, label: "Flat trend" },
+    { value: 2, label: "Downward trend" },
+  ],
+  ca: [
+    { value: 0, label: "0 blocked vessels" },
+    { value: 1, label: "1 blocked vessel" },
+    { value: 2, label: "2 blocked vessels" },
+    { value: 3, label: "3 blocked vessels" },
+    { value: 4, label: "4 blocked vessels" },
+  ],
+  thal: [
+    { value: 0, label: "Unknown / not sure" },
+    { value: 1, label: "Normal blood flow" },
+    { value: 2, label: "Fixed blood flow issue" },
+    { value: 3, label: "Stress-related blood flow issue" },
+  ],
 };
 
 export const heartRiskFactors = [
